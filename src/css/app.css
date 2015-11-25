@@ -1,3 +1,12 @@
 .title {
   font-family: 'Lobster Two', cursive;
 }
+
+.page-header img {
+  margin-right: 1%;
+  max-height: 35px;
+}
+
+.panel-default:hover {
+  background-color: lightgray;
+}

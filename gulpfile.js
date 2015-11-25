@@ -3,9 +3,10 @@ var gulp = require('./gulp')([
   'css',
   'fonts',
   'html',
+  'images',
   'serve',
   'watch',
 ]);
 
-gulp.task('build', ['browserify', 'html', 'css', 'fonts']);
+gulp.task('build', ['browserify', 'html', 'css', 'fonts', 'images']);
 gulp.task('default', ['build', 'serve', 'watch']);
