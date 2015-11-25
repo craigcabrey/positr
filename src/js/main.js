@@ -29,6 +29,20 @@ class Main extends React.Component {
     const newPhrases = phrases.concat([{key: phrase, doc: {count: 1}}]);
 
     this.setState({phrases: newPhrases});
+
+    fetch(this.props.url, {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        '_id': phrase,
+        'count': 1
+      })
+    })
+      .then(data => this.load())
+      .catch(err => console.error(this.props.url, err.toString()))
   }
 
   render() {
