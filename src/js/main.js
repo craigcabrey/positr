@@ -7,6 +7,7 @@ import PhraseForm from './phrase-form';
 class Main extends React.Component {
   constructor() {
     super();
+    this.handlePhraseIncrement = this.handlePhraseIncrement.bind(this);
     this.handlePhraseSubmit = this.handlePhraseSubmit.bind(this);
     this.state = {
       phrases: []
@@ -22,6 +23,25 @@ class Main extends React.Component {
 
   componentDidMount() {
     this.load()
+  }
+
+  handlePhraseIncrement(index) {
+    const phrase = this.state.phrases[index];
+    phrase.doc.count = phrase.doc.count + 1;
+
+    fetch(this.props.url + '/' + phrase.id, {
+      method: 'put',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        '_rev': phrase.doc._rev,
+        'count': phrase.doc.count
+      })
+    })
+      .then(data => this.load())
+      .catch(err => console.error(this.props.url, err.toString()))
   }
 
   handlePhraseSubmit(phrase) {
@@ -51,7 +71,9 @@ class Main extends React.Component {
         <img src='img/brand.jpg' alt='the positr' className='img-circle' />
         positr
       </h1>
-      <PhraseList phrases={this.state.phrases} />
+      <PhraseList
+        onPhraseIncrement={this.handlePhraseIncrement}
+        phrases={this.state.phrases} />
       <PhraseForm onPhraseSubmit={this.handlePhraseSubmit} />
     </div>;
   }

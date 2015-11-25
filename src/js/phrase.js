@@ -3,7 +3,7 @@ import React from 'react';
 class Phrase extends React.Component {
   render() {
     return <div className="col-md-4">
-      <a href="#">
+      <a onClick={this.props.onPhraseClick}>
         <div className="panel panel-default">
           <div className="panel-body">
             <samp>
