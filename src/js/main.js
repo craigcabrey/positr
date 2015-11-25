@@ -10,12 +10,15 @@ class Main extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       newPhraseContent: '',
-      phrases: [
-        {body: 'posit', count: 1},
-        {body: 'afford', count: 5},
-        {body: 'in so far as', count: 8},
-      ]
+      phrases: []
     };
+  }
+
+  load() {
+    fetch(this.props.url)
+      .then(response => response.json())
+      .then(data => this.setState({phrases: data.rows}))
+      .catch(err => console.error(this.props.url, err.toString()))
   }
 
   newPhrase() {
@@ -27,6 +30,10 @@ class Main extends React.Component {
     this.setState({newPhraseContent: e.target.value});
   }
 
+  componentDidMount() {
+    this.load()
+  }
+
   render() {
     return <div className="container">
       <h1 className="title page-header">
@@ -35,7 +42,7 @@ class Main extends React.Component {
       </h1>
       <div className="row">
         {this.state.phrases.map((phrase, idx) =>
-          <Phrase key={idx} body={phrase.body} count={phrase.count} />
+          <Phrase key={idx} body={phrase.key} count={phrase.doc.count} />
         )}
       </div>
       <div className="row form-row">
@@ -54,4 +61,7 @@ class Main extends React.Component {
   }
 }
 
-ReactDOM.render(<Main />, document.getElementById('main-mount'));
+ReactDOM.render(
+  <Main url='http://couch.kocsen.com/lol/_all_docs?include_docs=true'/>,
+  document.getElementById('main-mount')
+);
