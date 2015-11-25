@@ -7,15 +7,24 @@ class Main extends React.Component {
   constructor() {
     super();
     this.newPhrase = this.newPhrase.bind(this);
-    this.phrases = [
-      {id: 1, body: 'posit', count: 1},
-      {id: 2, body: 'afford', count: 5},
-      {id: 3, body: 'in so far as', count: 8},
-    ];
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      newPhraseContent: '',
+      phrases: [
+        {body: 'posit', count: 1},
+        {body: 'afford', count: 5},
+        {body: 'in so far as', count: 8},
+      ]
+    };
   }
 
   newPhrase() {
-    this.phrases.push({id: 4, body: 'new', count: 10});
+    this.state.phrases.push({body: this.state.newPhraseContent, count: 1});
+    this.setState({phrases: this.state.phrases});
+  }
+
+  handleChange(e) {
+    this.setState({newPhraseContent: e.target.value});
   }
 
   render() {
@@ -23,14 +32,23 @@ class Main extends React.Component {
       <h1 className="title page-header">
         <img src="img/brand.jpg" alt="the positr" className="img-circle" />
         positr
-        <button className="btn btn-primary pull-right" onClick={this.newPhrase}>
-          New Phrase
-        </button>
       </h1>
       <div className="row">
-        {this.phrases.map((phrase) =>
-          <Phrase key={phrase.id} body={phrase.body} count={phrase.count} />
+        {this.state.phrases.map((phrase, idx) =>
+          <Phrase key={idx} body={phrase.body} count={phrase.count} />
         )}
+      </div>
+      <div className="row form-row">
+        <div className="col-md-4 pull-right">
+          <div className="input-group">
+            <input type="text" className="form-control" onChange={this.handleChange} />
+            <span className="input-group-btn">
+              <button className="btn btn-primary title" onClick={this.newPhrase}>
+                New Phrase
+              </button>
+            </span>
+          </div>
+        </div>
       </div>
     </div>;
   }

@@ -10,3 +10,7 @@
 .panel-default:hover {
   background-color: lightgray;
 }
+
+.form-row {
+  margin-top: 1em;
+}
