@@ -8,7 +8,7 @@ class PhraseList extends React.Component {
   }
 
   render() {
-    return <div className="row">
+    return <div className='row'>
       {this.props.phrases.map((phrase, index) => {
         const boundClick = this.handlePhraseClick.bind(this, index);
         return (<Phrase
