@@ -3,9 +3,11 @@ import React from 'react';
 class PhraseForm extends React.Component {
   constructor() {
     super();
-    this.state = {phrase: ''};
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {
+      phrase: ''
+    };
   }
 
   handleChange(event) {
@@ -25,10 +27,19 @@ class PhraseForm extends React.Component {
   }
 
   render() {
-    return <div className='row form-row'>
-      <div className='col-md-4 pull-right'>
+    return <div className='row'>
+      <div className='col-xs-12 col-sm-6 col-md-4'>
+        <div className='form-group input-group'>
+          <span className='title input-group-addon'>Filter</span>
+          <input
+            type='text'
+            className='form-control'
+            onChange={this.props.onFilterChange} />
+        </div>
+      </div>
+      <div className='col-xs-12 col-sm-6 col-md-4 col-md-offset-4'>
         <form onSubmit={this.handleSubmit}>
-          <div className='input-group'>
+          <div className='form-group input-group'>
             <input
               type='text'
               className='form-control'
