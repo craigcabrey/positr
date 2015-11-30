@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Fetch from 'whatwg-fetch';
 
 import FilteredPhraseList from './filtered-phrase-list';
 
